@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class Yatzy {
@@ -16,37 +15,31 @@ public class Yatzy {
     }
 
     public static int ones(PlayerRoll playerRoll) {
-        return sum(playerRoll, 1);
+        return playerRoll.sum(1);
     }
 
     public static int twos(PlayerRoll playerRoll) {
-        return sum(playerRoll, 2);
+        return playerRoll.sum(2);
     }
 
     public static int threes(PlayerRoll playerRoll) {
-        return sum(playerRoll, 3);
+        return playerRoll.sum(3);
     }
 
     public static int fours(PlayerRoll playerRoll) {
-        return sum(playerRoll, 4);
+        return playerRoll.sum(4);
     }
 
     public static int fives(PlayerRoll playerRoll) {
-        return sum(playerRoll, 5);
+        return playerRoll.sum(5);
     }
 
     public static int sixes(PlayerRoll playerRoll) {
-        return sum(playerRoll, 6);
-    }
-
-    private static int sum(PlayerRoll playerRoll, int i) {
-        return playerRoll.streamOfInteger().filter(d -> d == i)
-                .mapToInt(Integer::intValue)
-                .sum();
+        return playerRoll.sum(6);
     }
 
     public static int pair(PlayerRoll playerRoll) {
-        return numberOfAKind(playerRoll, 2);
+        return playerRoll.numberOfAKind(2);
     }
 
     public static int twoPair(PlayerRoll playerRoll) {
@@ -62,22 +55,11 @@ public class Yatzy {
     }
 
     public static int threeOfAKind(PlayerRoll playerRoll) {
-        return numberOfAKind(playerRoll, 3);
+        return playerRoll.numberOfAKind(3);
     }
 
     public static int fourOfAKind(PlayerRoll playerRoll) {
-        return numberOfAKind(playerRoll, 4);
-    }
-
-    private static int numberOfAKind(PlayerRoll playerRoll, int i) {
-        Map<Integer, Long> map = playerRoll.streamOfInteger()
-                .collect(Collectors.groupingBy(d -> d, Collectors.counting()));
-        OptionalInt max = map.entrySet()
-                .stream()
-                .filter(e -> e.getValue() >= i)
-                .mapToInt(e -> e.getKey())
-                .max();
-        return max.orElse(0) * i;
+        return playerRoll.numberOfAKind(4);
     }
 
     public static int smallStraight(PlayerRoll playerRoll) {
