@@ -11,13 +11,8 @@ public class Yatzy {
     }
 
     public static int yatzy(PlayerRoll playerRoll) {
-
-        int[] counts = new int[6];
-        for (int die : playerRoll.getDice())
-            counts[die - 1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
+        if (playerRoll.streamOfInteger().allMatch(i -> i == playerRoll.getDice()[0]))
+            return 50;
         return 0;
     }
 
